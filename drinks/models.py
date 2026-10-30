@@ -9,6 +9,9 @@ class Ingredient(models.Model):#klasa bazowa składników (tabela)
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['id']
+
 class Cocktail(models.Model):#klasa bazowa drinku (tabela)
     name = models.CharField(max_length=200)#zmienna mowiaca o nazwie koktajlu
     category = models.CharField(max_length=200)#zmienna mowiaca o kategorii koktajlu
@@ -16,6 +19,9 @@ class Cocktail(models.Model):#klasa bazowa drinku (tabela)
     ingredients = models.ManyToManyField(Ingredient, through='CocktailIngredient')#zmienna łącząca koktajl i skladniki i aby zapisywala to w klasie CocktailIngredient
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['id']
 
 class CocktailIngredient(models.Model):
     cocktail = models.ForeignKey(Cocktail, on_delete=models.CASCADE, related_name='recipe_items')#zapisanie klucza do klasy koktajli

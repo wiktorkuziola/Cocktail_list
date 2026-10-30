@@ -6,6 +6,7 @@ from .serializers import CocktailSerializer
 from .serializers import IngredientSerializer
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from .filters import CocktailFilter
 # Create your views here.
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
@@ -19,6 +20,6 @@ class CocktailViewSet(viewsets.ModelViewSet):
     queryset = Cocktail.objects.all()
     serializer_class = CocktailSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['category', 'ingredients', 'ingredients__is_alcoholic']# pozwala filtrowac po kategorii itd
+    filterset_class = CocktailFilter# pozwala filtrowac po kategorii itd
     search_fields = ['name', 'instruction', 'ingredients__name']#pozwala szukac tekstu
     ordering_fields = ['name', 'category', 'id']#pozwala sortowac
